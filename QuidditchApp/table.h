@@ -5,9 +5,9 @@
 #include <GL/GLUT.H>
 #include "matrix.h"
 
-const float t_length = 600;
-const float t_width = 300;
-const float t_thick = 20;
+const float t_length = 30;
+const float t_width = 49;
+const float t_thick = 0;
 
 class Table
 {

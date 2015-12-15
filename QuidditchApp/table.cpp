@@ -20,15 +20,11 @@ void Table::init()
 
 void Table::render()
 {
-	glBegin(GL_QUADS);
-	glVertex3f(1.0f, 1.0f, -1.0f);			
-	glVertex3f(-1.0f, 1.0f, -1.0f);			
-	glVertex3f(-1.0f, 1.0f, 1.0f);			
-	glVertex3f(1.0f, 1.0f, 1.0f);
-	glVertex3f(1.0f, -1.0f, 1.0f);			
-	glVertex3f(-1.0f, -1.0f, 1.0f);			
-	glVertex3f(-1.0f, -1.0f, -1.0f);			
-	glVertex3f(1.0f, -1.0f, -1.0f);			
+	glColor3f(0.129f, 0.387f, 0.0f);
+	glPushMatrix();
+	glTranslatef(0.0f, 0.0f, t_thick);
+	glRectf(-t_length/2, t_width/2, t_length/2, -t_width/2);
+	glPopMatrix();
 	glEnd();
 }
 

@@ -2,8 +2,13 @@
 #include <iostream>
 #include <GL\GLUT.H>
 #include "controller.h"
+#include "table.h"
+#include "physical.h"
 
 using namespace std;
+
+const int windowL = 800;
+const int windowW = 600;;
 
 GLfloat mat_sp[] = { 1.0,1.0,1.0,1.0 };
 GLfloat mat_sh[] = { 50.0 };
@@ -11,44 +16,88 @@ GLfloat light_p[] = { 1,1,1,0 };
 GLfloat yellow_l[] = { 1,1,0,1 };
 GLfloat lmodel_a[] = { 0.1,0.1,0.1,1.0 };
 GLfloat spin = 0;
+CrashList *crashManager;
 Camera *cam;
 Controller *control;
+Table *tb;
+Orb *orb[6];
+Orb *ghost[6];
 
 void InitGL()
 {
 	glClearColor(0, 0, 0, 0);
 	glShadeModel(GL_SMOOTH);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_POINT_SMOOTH);
+	glEnable(GL_LINE_SMOOTH);
+	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	/*glMaterialfv(GL_FRONT, GL_SPECULAR, mat_sp);
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_sh);
 	glLightfv(GL_LIGHT0, GL_POSITION, light_p); //指定光源的位置
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, yellow_l);  //设定漫反射效果
 	glLightfv(GL_LIGHT0, GL_SPECULAR, yellow_l); //设定高光反射效果
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lmodel_a); //设定全局环境光*/
+	
+	//glEnable(GL_LIGHTING); //启用光源
+	//glEnable(GL_LIGHT0);   //使用指定灯光
+	tb = new Table;
+	tb->init();
+	crashManager = new CrashList();
+	orb[0] = new Orb(0.0, 0.0, 0.0, 0.5, 0.003, 0.002, 0.0);
+	orb[1] = new Orb(1.0, 0.0, 0.0, 0.5, 0.005, 0.004, 0.0);
+	orb[2] = new Orb(0.0, 1.0, 0.0, 0.5, 0.004, -0.006, 0.0);
+	orb[3] = new Orb(1.0, 1.0, 0.0, 0.5, 0.008, 0.001, 0.0);
+	orb[4] = new Orb(1.0, -1.0, 0.0, 0.5, 0.003, 0.006, 0.0);
+	orb[5] = new Orb(-1.0, 0.0, 0.0, 0.5, 0.002, 0.002, 0.0);
+	ghost[0] = new Orb(5.0, 4.0, 0.0,0.5, 0, 0, 0);
+	ghost[1] = new Orb(0.0, 4.0, 0.0, 0.5, 0, 0, 0);
+	ghost[2] = new Orb(-5.0, 4.0, 0.0, 0.5, 0, 0, 0);
+	ghost[3] = new Orb(5.0, -4.0, 0.0, 0.5, 0, 0, 0);
+	ghost[4] = new Orb(0.0, -4.0, 0.0, 0.5, 0, 0, 0);
+	ghost[5] = new Orb(-5.0, -4.0, 0.0, 0.5, 0, 0, 0);
+	Orb* gorb = new Orb(0.0, 0.0, 10.0, 0.5, 0, 0.008, 0);
+	gorb->setIndex(2);
+	gorb->init();
+	crashManager->addObj(*gorb);
+	for (int i = 0; i < 6; i++)
+	{
+		orb[i]->init();
+		ghost[i]->init();
+		crashManager->addObj(*orb[i]);
+		crashManager->addObj(*ghost[i]);
+	}
 
-	glEnable(GL_LIGHTING); //启用光源
-	glEnable(GL_LIGHT0);   //使用指定灯光
-	glEnable(GL_DEPTH_TEST);
-	Vector3D pos(0, 0, 1);
+	Vector3D pos(0, -23.1495, 86.395);
 	Vector3D ref(0, 0.0, 0.0);
-	Vector3D vis(0, 1, 0);
+	Vector3D vis(0, 0.866025, -0.5);
 	control = new Controller(pos, ref, vis);
 	glLoadIdentity();
 	control->init();
-
+	//glMatrixMode(GL_PROJECTION);
+	//glOrtho(-200, 200, -200, 200, 100, 1000);
 }
 
 
 void myDisplay()
 {
-	glClearColor(0, 0, 0, 0);  //设置背景色
+	glClearColor(0.8, 0.8, 0.8, 0);  //设置背景色
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(1, 0, 1, 0, 0, 0, 0, 1, 0);
-	glMatrixMode(GL_PROJECTION);
 	control->setModelViewMatrix();
-	glutWireSphere(0.1, 40, 40);
+	tb->render();
+	crashManager->crash();
+	crashManager->renderAll();
+	crashManager->updateAll();
 	glFlush();
+}
+
+void timerProc(int id)
+{
+	myDisplay();
+	glutTimerFunc(16, timerProc, 1);
 }
 
 void ChangeSize(int w, int h)
@@ -56,19 +105,20 @@ void ChangeSize(int w, int h)
 	glViewport(0, 0, (GLsizei)w, (GLsizei)h);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	control->setShap(45.0, (GLfloat)w / (GLfloat)h, 0.1, 100.0);
+	control->setShap(36.0, (GLfloat)w / (GLfloat)h, 10, 150.0);
 }
 
 int main(int argc, char *argv[])
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE | GLUT_DEPTH);
-	glutInitWindowSize(600, 800);    //显示框大小
+	glutInitWindowSize(windowW, windowL);    //显示框大小
 	glutInitWindowPosition(200, 400); //确定显示框左上角的位置
 	glutCreateWindow("Quidditch");
 	InitGL();
 	glutDisplayFunc(myDisplay);
 	glutReshapeFunc(ChangeSize);
+	glutTimerFunc(32, timerProc, 1);
 	glutMainLoop();
 	return 0;
 }

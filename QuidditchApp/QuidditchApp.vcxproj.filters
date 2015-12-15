@@ -33,6 +33,12 @@
     <ClCompile Include="orb.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="physical.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Club.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h">
@@ -48,6 +54,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="orb.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="physical.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Club.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

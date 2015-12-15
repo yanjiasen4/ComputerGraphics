@@ -26,8 +26,6 @@ void Camera::setModelViewMatrix()
 	m[2] = n.x; m[6] = n.y; m[10] = n.z;m[14] = -eVec.dot(n);
 	m[3] = 0;   m[7] = 0;   m[11] = 0;  m[15] = 1.0;
 	glMatrixMode(GL_MODELVIEW);
-	cout << view.x << ends << view.y << ends << view.z << endl;
-	cout << vis.x << ends << vis.y << ends << vis.z << endl;
 	glLoadIdentity();
 	gluLookAt(view.x,view.y,view.z, ref.x,ref.y,ref.z, vis.x,vis.y,vis.z);
 	//glLoadMatrixf(m);     //用M矩阵替换原视点矩阵  
@@ -64,6 +62,8 @@ void Camera::trackup(float angle)
 	float sn = sin(zxangle*PI/180);
 	view.setY(radius * sn);
 	view.setZ(radius * cs);
+	vis.setY(cs);
+	vis.setZ(sn);
 	setCamera();
 	setModelViewMatrix();
 }
