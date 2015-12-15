@@ -60,9 +60,8 @@ void processMouseMove(int x, int y)
 	}
 	else if (dx < 0 && dy < 0) // 4th quadrant 
 	{
-		angle -= 90;
+		angle -= 90; 7;
 	}
-	cout << "angle:" << angle << endl;
 	crashManager->rotateClb(angle);
 	//cout << "x:" << x << " " << "y:" << y << "\n";
 	//crashManager->rotateClb(getClubAngle(x, y));
@@ -80,11 +79,11 @@ void processSpecialKeys(int key, int x, int y)
 {
 	switch (key) {
 	case GLUT_KEY_UP:
-		cam->trackup(15.0);
+		cam->trackup(15.0); // 视角上移15°
 		glutPostRedisplay();
 		break;
 	case GLUT_KEY_DOWN:
-		cam->trackdown(15.0);
+		cam->trackdown(15.0); // 视角下移15°
 		glutPostRedisplay();
 		break;
 	default:

@@ -1,13 +1,14 @@
-﻿生成启动时间为 2015/10/26 16:57:24。
+﻿生成启动时间为 2015/12/15 13:13:02。
      1>项目“F:\ComputerGraphics-master\QuidditchApp\QuidditchApp.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
-         D:\Visual Studio2015\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt orb.cpp
-         orb.cpp
-     1>f:\computergraphics-master\quidditchapp\orb.cpp(167): warning C4715: “Orb::cross”: 不是所有的控件路径都返回值
+         D:\Visual Studio2015\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt glhf.cpp
+         glhf.cpp
        Link:
-         D:\Visual Studio2015\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\ComputerGraphics-master\Debug\QuidditchApp.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"F:\ComputerGraphics-master\Debug\QuidditchApp.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\ComputerGraphics-master\Debug\QuidditchApp.lib" /MACHINE:X86 Debug\camera.obj
+         D:\Visual Studio2015\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\ComputerGraphics-master\Debug\QuidditchApp.exe" /INCREMENTAL /NOLOGO OpenGL32.lib GLu32.lib GLaux.lib legacy_stdio_definitions.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"F:\ComputerGraphics-master\Debug\QuidditchApp.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\ComputerGraphics-master\Debug\QuidditchApp.lib" /MACHINE:X86 Debug\camera.obj
          Debug\Club.obj
          Debug\controller.obj
+         Debug\flag.obj
+         Debug\glhf.obj
          Debug\main.obj
          Debug\matrix.obj
          Debug\orb.obj
@@ -18,4 +19,4 @@
 
 已成功生成。
 
-已用时间 00:00:00.70
+已用时间 00:00:00.85

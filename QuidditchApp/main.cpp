@@ -1,9 +1,10 @@
 #define GLUT_DISABLE_ATEXIT_HACK
 #include <iostream>
-#include <GL\GLUT.H>
+#include "glhf.h"
 #include "controller.h"
 #include "table.h"
 #include "physical.h"
+#include "flag.h"
 
 using namespace std;
 
@@ -22,6 +23,25 @@ Controller *control;
 Table *tb;
 Orb *orb[6];
 Orb *ghost[6];
+Flag *flag;
+
+void initlights(void)
+{
+	GLfloat ambient[] = { 0.2, 0.2, 0.2, 1.0 };
+	GLfloat position[] = { 0.0, 0.0, 2.0, 1.0 };
+	GLfloat mat_diffuse[] = { 0.6, 0.6, 0.6, 1.0 };
+	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat mat_shininess[] = { 50.0 };
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_AUTO_NORMAL);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
+	glLightfv(GL_LIGHT0, GL_POSITION, position);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+}
 
 void InitGL()
 {
@@ -33,15 +53,9 @@ void InitGL()
 	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	/*glMaterialfv(GL_FRONT, GL_SPECULAR, mat_sp);
-	glMaterialfv(GL_FRONT, GL_SHININESS, mat_sh);
-	glLightfv(GL_LIGHT0, GL_POSITION, light_p); //指定光源的位置
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, yellow_l);  //设定漫反射效果
-	glLightfv(GL_LIGHT0, GL_SPECULAR, yellow_l); //设定高光反射效果
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lmodel_a); //设定全局环境光*/
+
+	initTexture();
 	
-	//glEnable(GL_LIGHTING); //启用光源
-	//glEnable(GL_LIGHT0);   //使用指定灯光
 	tb = new Table;
 	tb->init();
 	crashManager = new CrashList();
@@ -77,6 +91,9 @@ void InitGL()
 	control->init();
 	//glMatrixMode(GL_PROJECTION);
 	//glOrtho(-200, 200, -200, 200, 100, 1000);
+	flag = new Flag();
+	flag->init();
+	initlights();
 }
 
 
@@ -88,6 +105,7 @@ void myDisplay()
 	glLoadIdentity();
 	control->setModelViewMatrix();
 	tb->render();
+	flag->render();
 	crashManager->crash();
 	crashManager->renderAll();
 	crashManager->updateAll();

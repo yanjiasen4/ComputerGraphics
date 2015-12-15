@@ -39,6 +39,12 @@
     <ClCompile Include="Club.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="flag.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="glhf.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h">
@@ -62,5 +68,20 @@
     <ClInclude Include="Club.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="flag.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="glhf.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\flag.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -69,7 +69,7 @@ void CrashList::hit()
 	float club_ag = clb->getAngle();
 	float v_x = cos(club_ag/180*PI);
 	float v_y = sin(club_ag/180*PI);
-	m_v.set(0.02*v_x, 0.02*v_y, 0);
+	m_v.set(m_v.x+0.02*v_x, m_v.y+0.02*v_y, 0);
 	objList[0].setSpeed(m_v.x,m_v.y,m_v.z);
 }
 

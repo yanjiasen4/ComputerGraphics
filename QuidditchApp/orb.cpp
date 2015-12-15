@@ -63,7 +63,7 @@ void Orb::init()
 		t = 0;
 	}
 	else {
-		colorR = 0.0;
+		colorR = 1.0;
 		colorG = 0.0;
 		colorB = 0.0;
 	}
@@ -90,7 +90,6 @@ void Orb::update()
 	{
 		if (state == 0)
 		{
-			cout << t << endl;
 			vz = 0;
 			o.x += vx;
 			o.y += vy;

@@ -77,6 +77,8 @@ void Camera::trackdown(float angle)
 	float sn = sin(zxangle*PI / 180);
 	view.setY(radius * sn);
 	view.setZ(radius * cs);
+	vis.setY(cs);
+	vis.setZ(sn);
 	setCamera();
 	setModelViewMatrix();
 }

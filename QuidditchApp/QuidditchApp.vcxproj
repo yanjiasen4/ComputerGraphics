@@ -47,6 +47,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>OpenGL32.lib;GLu32.lib;GLaux.lib;legacy_stdio_definitions.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -67,6 +68,8 @@
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="Club.cpp" />
     <ClCompile Include="controller.cpp" />
+    <ClCompile Include="flag.cpp" />
+    <ClCompile Include="glhf.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="matrix.cpp" />
     <ClCompile Include="orb.cpp" />
@@ -77,10 +80,19 @@
     <ClInclude Include="camera.h" />
     <ClInclude Include="Club.h" />
     <ClInclude Include="controller.h" />
+    <ClInclude Include="flag.h" />
+    <ClInclude Include="glhf.h" />
     <ClInclude Include="matrix.h" />
     <ClInclude Include="orb.h" />
     <ClInclude Include="physical.h" />
     <ClInclude Include="table.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\flag.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

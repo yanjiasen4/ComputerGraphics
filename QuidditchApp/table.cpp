@@ -1,5 +1,7 @@
 #include"table.h"
 
+extern GLuint texture[TEXTURE_NUM];
+
 Table::Table()
 {
 

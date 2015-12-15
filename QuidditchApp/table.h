@@ -2,7 +2,7 @@
 #ifndef __TABLE_H__
 #define __TABLE_H__
 
-#include <GL/GLUT.H>
+#include "glhf.h"
 #include "matrix.h"
 
 const float t_length = 30;
