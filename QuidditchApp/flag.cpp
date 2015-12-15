@@ -14,11 +14,21 @@ void Flag::render()
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	// 保存模型视图矩阵  
 	glMatrixMode(GL_MODELVIEW);
+
+	// 绘制旗杆
 	glPushMatrix();
-	//旋转一定的角度方便观察  
-	glTranslatef(15.0f, 1.0f, 1.0f);
+	glTranslatef(0.0f, 24.0f, 0.0f);
+	GLUquadric *pObj;
+	pObj = gluNewQuadric();
+	gluCylinder(pObj, 0.2f, 0.2f, 7.0f, 12, 1);
+	glPopMatrix();
+
+	// 绘制旗面
+	glPushMatrix();
+	glTranslatef(3.8f, 24.0f, 8.5f);
 	//glRotatef(45.0f, 0.0f, 1.0f, 0.0f);
 	//glRotatef(60.0f, 1.0f, 0.0f, 0.0f);
+
 	glBindTexture(GL_TEXTURE_2D, tex_ID);
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_MAP2_VERTEX_3);
@@ -38,6 +48,7 @@ void Flag::render()
 
 void Flag::update()
 {
+
 }
 
 

@@ -60,7 +60,7 @@ void processMouseMove(int x, int y)
 	}
 	else if (dx < 0 && dy < 0) // 4th quadrant 
 	{
-		angle -= 90; 7;
+		angle -= 90;
 	}
 	crashManager->rotateClb(angle);
 	//cout << "x:" << x << " " << "y:" << y << "\n";
