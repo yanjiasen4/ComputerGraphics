@@ -1,5 +1,5 @@
 /*
-  opengl helper function
+  opengl helper function (not good game have fun)
 */
 
 #pragma once

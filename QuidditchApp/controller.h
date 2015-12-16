@@ -4,11 +4,12 @@
 
 #include <gl\glut.h>
 #include "camera.h"
+#include "flag.h"
 #include "physical.h"
-
 using namespace std;
 
 extern Camera *cam;
+extern Flag  *flag;
 extern CrashList *crashManager;
 extern const int windowL;
 extern const int windowW;

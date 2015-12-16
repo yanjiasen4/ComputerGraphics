@@ -65,6 +65,9 @@ void Camera::trackup(float angle)
 	vis.setY(cs);
 	vis.setZ(sn);
 	setCamera();
+	// debug
+	printCamInfo();
+	// reflush
 	setModelViewMatrix();
 }
 
@@ -80,6 +83,9 @@ void Camera::trackdown(float angle)
 	vis.setY(cs);
 	vis.setZ(sn);
 	setCamera();
+	// debug
+	printCamInfo();
+	// reflush
 	setModelViewMatrix();
 }
 
@@ -111,4 +117,15 @@ void Camera::forward(float dz)
 void Camera::back(float dz)
 {
 	view.setZ(view.getZ() - dz);
+}
+
+void Camera::printCamInfo()
+{
+	cout << "at:";
+	view.printV();
+	cout << endl << "look at:";
+	ref.printV();
+	cout << endl << "v:";
+	vis.printV();
+	cout << endl;
 }

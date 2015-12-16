@@ -31,6 +31,9 @@ public:
 	void forward(float dz);
 	void back(float dz);
 
+	// ------- for debug ----------
+	void printCamInfo();
+
 private:
 	Vector3D view;
 	Vector3D ref;

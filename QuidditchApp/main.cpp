@@ -106,6 +106,7 @@ void myDisplay()
 	control->setModelViewMatrix();
 	tb->render();
 	flag->render();
+	flag->update();
 	crashManager->crash();
 	crashManager->renderAll();
 	crashManager->updateAll();

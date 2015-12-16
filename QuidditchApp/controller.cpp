@@ -70,7 +70,18 @@ void processMouseMove(int x, int y)
 
 void processNormalKeys(unsigned char key, int x, int y)
 {
-
+	switch (key) {
+	case 'u':
+		flag->windUp();
+		glutPostRedisplay();
+		break;
+	case 'i':
+		flag->windDown();
+		glutPostRedisplay();
+		break;
+	default:
+		break;
+	}
 }
 
 

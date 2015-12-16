@@ -52,6 +52,9 @@ public:
 
 	// 向量标准化
 	void normalize();
+
+	// 打印向量信息
+	void printV();
 public:
 	float x;
 	float y;

@@ -75,6 +75,11 @@ void Vector3D::normalize()
 	set(x / psum, y / psum, z / psum);
 }
 
+void Vector3D::printV()
+{
+	cout << "(" << x << "," << y << "," << z << ")";
+}
+
 float getDistance3D(Point3D p1, Point3D p2)
 {
 	return sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2) + pow(p1.z - p2.z, 2));
