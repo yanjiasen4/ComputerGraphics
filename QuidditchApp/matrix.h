@@ -16,6 +16,10 @@ public:
 	Point3D(float xx, float yy, float zz) : x(xx), y(yy), z(zz) {}
 	Point3D(Point3D &p) { x = p.x; y = p.y; z = p.z; }
 
+	Point3D operator+(Point3D p);
+	Point3D operator-(Point3D p);
+	Point3D operator/(int n);
+
 public:
 	float x, y, z;
 };
@@ -27,7 +31,7 @@ class Vector3D
 public:
 	Vector3D();
 	Vector3D(float xx, float yy, float zz) :x(xx), y(yy), z(zz){}
-	Vector3D(Vector3D &v) :x(v.x),y(v.y),z(v.z){}
+	Vector3D(const Vector3D &v) :x(v.x),y(v.y),z(v.z){}
 
 	float getX() { return x; }
 	float getY() { return y; }
@@ -37,6 +41,7 @@ public:
 	void setZ(float zz) { z = zz; }
 	void set(float xx, float yy, float zz) { x = xx; y = yy; z = zz; }
 
+	Vector3D& operator=(const Vector3D &v);
 	Vector3D operator+(Vector3D v);
 	Vector3D operator-(Vector3D v);
 	Vector3D operator*(Vector3D v);

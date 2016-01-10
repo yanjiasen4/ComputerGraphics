@@ -2,8 +2,10 @@
 #ifndef __CEMERA_H__ 
 #define __CAMERA_H__
 
+#include <gl/glew.h>
 #include <GL\GLUT.H>
 #include "matrix.h"
+#include "skybox.h"
 
 #include <iostream>
 
@@ -18,10 +20,15 @@ public:
 	void setModelViewMatrix();
 	void setShape(float viewAngle, float aspect, float Near, float Far);
 	void setCamera();
+	void resetCamera();
 
 	// -------视角轨道滑动---------
-	void trackup(float angle);
-	void trackdown(float angle);
+	Point3D trackup(float angle);
+	Point3D trackdown(float angle);
+	Point3D turnleft(float angle);
+	Point3D turnright(float angle);
+	Point3D zoomin(float offset);
+	Point3D zoomout(float offset);
 
 	// -------视角平移操作---------
 	void up(float dx);
@@ -35,11 +42,12 @@ public:
 	void printCamInfo();
 
 private:
+	//Skybox *skybox;
 	Vector3D view;
 	Vector3D ref;
 	Vector3D vis;
 	Vector3D u, v, n;
-	float zxangle;
+	float zxangle, xyangle;
 };
 
 

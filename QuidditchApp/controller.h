@@ -2,12 +2,14 @@
 #ifndef __CONTROLLER_H__
 #define __CONTROLLER_H__
 
+#include <gl/glew.h>
 #include <gl\glut.h>
 #include "camera.h"
 #include "flag.h"
 #include "physical.h"
 using namespace std;
 
+extern Skybox *skybox;
 extern Camera *cam;
 extern Flag  *flag;
 extern CrashList *crashManager;

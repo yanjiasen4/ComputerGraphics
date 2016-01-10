@@ -70,6 +70,7 @@ void processMouseMove(int x, int y)
 
 void processNormalKeys(unsigned char key, int x, int y)
 {
+	Point3D newVis;
 	switch (key) {
 	case 'u':
 		flag->windUp();
@@ -77,6 +78,20 @@ void processNormalKeys(unsigned char key, int x, int y)
 		break;
 	case 'i':
 		flag->windDown();
+		glutPostRedisplay();
+		break;
+	case 'r':
+		cam->resetCamera();
+		glutPostRedisplay();
+		break;
+	case 'z':
+		newVis = cam->zoomin(1);
+		skybox->update(newVis.x, newVis.y, newVis.z);
+		glutPostRedisplay();
+		break;
+	case 'x':
+		newVis = cam->zoomout(1);
+		skybox->update(newVis.x, newVis.y, newVis.z);
 		glutPostRedisplay();
 		break;
 	default:
@@ -88,13 +103,30 @@ void processNormalKeys(unsigned char key, int x, int y)
 
 void processSpecialKeys(int key, int x, int y)
 {
+	Point3D newVis;
 	switch (key) {
 	case GLUT_KEY_UP:
-		cam->trackup(15.0); // 视角上移15°
+		newVis = cam->trackup(1.0); // 视角上移1°
+		cout << newVis.x << newVis.y << newVis.z << endl;
+		skybox->update(newVis.x, newVis.y, newVis.z);
 		glutPostRedisplay();
 		break;
 	case GLUT_KEY_DOWN:
-		cam->trackdown(15.0); // 视角下移15°
+		newVis = cam->trackdown(1.0); // 视角下移1°
+		cout << newVis.x << newVis.y << newVis.z << endl;
+		skybox->update(newVis.x, newVis.y, newVis.z);
+		glutPostRedisplay();
+		break;
+	case GLUT_KEY_LEFT:
+		newVis = cam->turnleft(1.0);
+		cout << newVis.x << newVis.y << newVis.z << endl;
+		skybox->update(newVis.x, newVis.y, newVis.z);
+		glutPostRedisplay();
+		break;
+	case GLUT_KEY_RIGHT:
+		newVis = cam->turnright(1.0);
+		cout << newVis.x << newVis.y << newVis.z << endl;
+		skybox->update(newVis.x, newVis.y, newVis.z);
 		glutPostRedisplay();
 		break;
 	default:

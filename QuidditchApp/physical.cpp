@@ -2,6 +2,7 @@
 
 CrashList::CrashList()
 {
+	particles.clear();
 	objList.clear();
 	Orb motherOrb = Orb(m_x,m_y,m_z,defualt_r,0.0,0.0,0.0);
 	motherOrb.setColor(1.0, 1.0, 1.0);
@@ -47,6 +48,11 @@ void CrashList::crash()
 			{
 				Point3D o1 = objList[i].o;
 				Point3D o2 = objList[j].o;
+				Point3D mid = (o1 + o2) / 2;
+				Spark *spk = new Spark(100);
+				spk->init(mid.x, mid.y, mid.z);
+				spk->activate();
+				particles.push_back(spk);
 				float dis = getDistance3D(objList[i].o, objList[j].o);
 				Vector3D v1 = Vector3D(objList[i].vx, objList[i].vy, objList[i].vz);
 				Vector3D v2 = Vector3D(objList[j].vx, objList[j].vy, objList[j].vz);
@@ -80,6 +86,10 @@ Orb CrashList::getObj(int i)
 
 void CrashList::renderAll()
 {
+	for (int i = 0; i < particles.size(); i++)
+	{
+		particles[i]->render();
+	}
 	clb->render();
 	for (int i = 0; i < objList.size(); i++)
 	{
@@ -89,6 +99,14 @@ void CrashList::renderAll()
 
 void CrashList::updateAll()
 {
+	for (int i = 0; i < particles.size(); i++)
+	{
+		particles[i]->update(0.01);
+		if (!particles[i]->isActive())
+		{
+			//delete particles[i];
+		}
+	}
 	Point3D aim_o = getMPos();
 	clb->update(aim_o.x,aim_o.y);
 	for (int i = 0; i < objList.size(); i++)

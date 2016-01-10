@@ -22,7 +22,7 @@ void Flag::render()
 
 	// ªÊ÷∆∆Ï∏À
 	glPushMatrix();
-	glTranslatef(0.0f, 24.0f, 0.0f);
+	glTranslatef(0.0f, 12.5f, 0.0f);
 	glColor3f(0.5f, 0.25f, 0.0f);
 	GLUquadric *pObj;
 	pObj = gluNewQuadric();
@@ -31,8 +31,8 @@ void Flag::render()
 
 	// ªÊ÷∆∆Ï√Ê
 	glPushMatrix();
-	glTranslatef(3.8f, 24.0f, 8.5f);
-	glBindTexture(GL_TEXTURE_2D, tex_ID);
+	glTranslatef(3.8f, 12.5f, 8.5f);
+	glBindTexture(GL_TEXTURE_2D,tex_ID);
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_MAP2_VERTEX_3);
 	glEnable(GL_MAP2_TEXTURE_COORD_2);
@@ -42,8 +42,10 @@ void Flag::render()
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glEvalMesh2(GL_FILL, 0, 10, 0, 10);
 	glPopMatrix();
-	glutSwapBuffers();
+	//glutSwapBuffers();
 	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_MAP2_VERTEX_3);
+	glDisable(GL_MAP2_TEXTURE_COORD_2);
 }
 
 void Flag::update()

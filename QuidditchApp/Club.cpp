@@ -36,7 +36,8 @@ void Club::render()
 {
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
-
+	Color color = { 99/256, 99/256, 0, 1.0f };
+	SetMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, color);
 	float xangle = angle + 90.0;
 	float roX = cos(xangle*PI/180);
 	float roY = sin(xangle*PI/180);

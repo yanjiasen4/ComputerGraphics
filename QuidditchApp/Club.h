@@ -1,7 +1,7 @@
 #pragma once
 #ifndef __CLUB_H__
 #define __CLUB_H__
-#include <gl/glut.h>
+#include "glhf.h"
 #include "matrix.h"
 
 const float club_start_y = -29.5f;

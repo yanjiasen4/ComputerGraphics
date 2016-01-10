@@ -6,6 +6,7 @@
 #include "matrix.h"
 #include "orb.h"
 #include "Club.h"
+#include "particle.h"
 
 #define MORB 0
 
@@ -33,6 +34,7 @@ public:
 	void setGstate(int st);
 
 private:
+	vector<ParticleSystem*> particles;
 	vector<Orb> objList;
 	Club *clb;
 };

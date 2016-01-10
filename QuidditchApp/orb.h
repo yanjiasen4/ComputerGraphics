@@ -1,6 +1,7 @@
 #ifndef __ORB_H__
 #define __ORB_H__
 
+#include <gl/glew.h>
 #include <GL/GLUT.H>
 #include <math.h>
 #include "table.h"
@@ -11,7 +12,7 @@ using namespace std;
 extern const float t_length;
 extern const float t_width;
 extern const float t_thick;
-const float defualt_r = 0.5;
+const float defualt_r = 0.25;
 const float m_x = 0.0;
 const float m_y = -(t_width / 2 - defualt_r);
 const float m_z = 0.0;

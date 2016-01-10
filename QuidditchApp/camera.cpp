@@ -5,6 +5,7 @@ view(pos), ref(tar), vis(V)
 {
 	Vector3D upv(vis.x - view.x, vis.y - view.y, vis.z - view.z);
 	zxangle = atan(0.0);
+	xyangle = atan(pos.x / pos.x);
 
 	n.set(view.x - ref.x, view.y - ref.y, view.z - ref.z);
 	u.set(upv.cross(n).x, upv.cross(n).y, upv.cross(n).z);
@@ -27,7 +28,7 @@ void Camera::setModelViewMatrix()
 	m[3] = 0;   m[7] = 0;   m[11] = 0;  m[15] = 1.0;
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(view.x,view.y,view.z, ref.x,ref.y,ref.z, vis.x,vis.y,vis.z);
+	gluLookAt(view.x,view.y,view.z, ref.x,ref.y,ref.z, 0,1,0);
 	//glLoadMatrixf(m);     //用M矩阵替换原视点矩阵  
 }
 
@@ -53,7 +54,15 @@ void Camera::setCamera()
 	setModelViewMatrix();
 }
 
-void Camera::trackup(float angle)
+void Camera::resetCamera()
+{
+	view.setX(0);
+	view.setY(-10);
+	view.setZ(40);
+	setCamera();
+}
+
+Point3D Camera::trackup(float angle)
 {
 	Vector3D nview = view;
 	zxangle += angle;
@@ -69,9 +78,10 @@ void Camera::trackup(float angle)
 	printCamInfo();
 	// reflush
 	setModelViewMatrix();
+	return Point3D(vis.x, vis.y, vis.z);
 }
 
-void Camera::trackdown(float angle)
+Point3D Camera::trackdown(float angle)
 {
 	Vector3D nview = view;
 	zxangle -= angle;
@@ -87,6 +97,59 @@ void Camera::trackdown(float angle)
 	printCamInfo();
 	// reflush
 	setModelViewMatrix();
+	return Point3D(view.x, view.y, view.z);
+}
+
+Point3D Camera::turnleft(float offset)
+{
+	float x = view.x;
+	x -= offset;
+	view.setX(x);
+	setCamera();
+	// debug
+	printCamInfo();
+	// reflush
+	setModelViewMatrix();
+	return Point3D(view.x, view.y, view.z);
+}
+
+Point3D Camera::turnright(float offset)
+{
+	float x = view.x;
+	x += offset;
+	view.setX(x);
+	setCamera();
+	// debug
+	printCamInfo();
+	// reflush
+	setModelViewMatrix();
+	return Point3D(view.x, view.y, view.z);
+}
+
+Point3D Camera::zoomin(float offset)
+{
+	float y = view.y;
+	y -= offset;
+	view.setY(y);
+	setCamera();
+	// debug
+	printCamInfo();
+	// reflush
+	setModelViewMatrix();
+	return Point3D(view.x, view.y, view.z);
+}
+
+Point3D Camera::zoomout(float offset)
+{
+	float y = view.y;
+	y += offset;
+	view.setY(y);
+	setCamera();
+	// debug
+	printCamInfo();
+	// reflush
+	setModelViewMatrix();
+	return Point3D(view.x, view.y, view.z);
 }
 
 float Camera::getDistance()

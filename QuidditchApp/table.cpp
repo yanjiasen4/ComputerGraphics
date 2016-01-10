@@ -4,12 +4,15 @@ extern GLuint texture[TEXTURE_NUM];
 
 Table::Table()
 {
-
+	terrain = new Terrain("res/mod/terrain.obj");
+	terrain->loadMtl("res/mod/terrain.mtl");
+	terrain->setAngle(90);
 }
 
 Table::~Table()
 {
-
+	if(terrain)
+		delete terrain;
 }
 
 void Table::init()
@@ -22,12 +25,7 @@ void Table::init()
 
 void Table::render()
 {
-	glColor3f(0.129f, 0.387f, 0.0f);
-	glPushMatrix();
-	glTranslatef(0.0f, 0.0f, t_thick);
-	glRectf(-t_length/2, t_width/2, t_length/2, -t_width/2);
-	glPopMatrix();
-	glEnd();
+	terrain->draw();
 }
 
 void Table::update()

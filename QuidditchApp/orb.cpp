@@ -180,7 +180,7 @@ void Orb::setIndex(int ind)
 GoldenSnitch::GoldenSnitch()
 {
 	o = Point3D(0, 0, 10);
-	r = 0.5f;
+	r = 0.25f;
 	vx = 0;
 	vy = 0.02;
 	vz = 0;
@@ -202,6 +202,8 @@ void GoldenSnitch::init()
 void GoldenSnitch::render()
 {
 	glPushMatrix();
+	Color color = { colorR, colorG, colorB, 1.0f };
+	SetMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, color);
 	glTranslatef(o.x, o.y, o.z + r);
 	glColor3f(colorR, colorG, colorB);
 	glutSolidSphere(r, 30, 30);

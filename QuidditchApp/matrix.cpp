@@ -48,6 +48,14 @@ float Vector3D::mod()
 	return sqrt(x*x + y*y + z*z);
 }
 
+Vector3D& Vector3D::operator=(const Vector3D & v)
+{
+	x = v.x;
+	y = v.y;
+	z = v.z;
+	return *this;
+}
+
 Vector3D Vector3D::operator+(Vector3D v)
 {
 	return Vector3D(this->x + v.getX(), this->y + v.getY(), this->z + v.getZ());
@@ -83,4 +91,19 @@ void Vector3D::printV()
 float getDistance3D(Point3D p1, Point3D p2)
 {
 	return sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2) + pow(p1.z - p2.z, 2));
+}
+
+Point3D Point3D::operator+(Point3D p)
+{
+	return Point3D(this->x+p.x, this->y+p.y, this->z+p.z);
+}
+
+Point3D Point3D::operator-(Point3D p)
+{
+	return Point3D(this->x-p.x, this->y-p.y, this->z-p.z);
+}
+
+Point3D Point3D::operator/(int n)
+{
+	return Point3D((this->x)/n, (this->y)/n, (this->z)/n);
 }
