@@ -8,8 +8,9 @@
 #include <gl/GLAUX.H>
 
 #include <iostream>
+#include"genTexture.h"
 
-#define TEXTURE_NUM 9
+#define TEXTURE_NUM 8
 
 using namespace std;
 
@@ -24,6 +25,8 @@ typedef struct
 void loadAllTexture();
 void initAllTexture();
 bool loadTexture(const char *filename, GLuint &texID);
+bool loadTexture(Texture *tex, GLuint &texID);
 void SetMaterial(GLenum face, GLenum pname, Color color);
+void fogging();
 
 AUX_RGBImageRec* loadBMP(const char *filename);

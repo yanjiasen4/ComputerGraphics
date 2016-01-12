@@ -16,7 +16,6 @@ void Flag::init()
 
 void Flag::render()
 {
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	// 保存模型视图矩阵  
 	glMatrixMode(GL_MODELVIEW);
 
@@ -39,10 +38,8 @@ void Flag::render()
 	glMap2f(GL_MAP2_VERTEX_3,0.0f,10.0f,3,5,0.0f,10.0f,15,2,&ctrlPoints[0][0][0]);
 	glMap2f(GL_MAP2_TEXTURE_COORD_2,0.0f,10.0f,2,2,0.0f,10.0f,4,2,&texpts[0][0][0]);
 	glMapGrid2f(10, 0.0f, 10.0f, 10, 0.0f, 10.0f);
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glEvalMesh2(GL_FILL, 0, 10, 0, 10);
 	glPopMatrix();
-	//glutSwapBuffers();
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GL_MAP2_VERTEX_3);
 	glDisable(GL_MAP2_TEXTURE_COORD_2);
@@ -51,22 +48,25 @@ void Flag::render()
 void Flag::update()
 {
 	// naive implement
-	float y;
+	float y, z;
 	dt += time_s;
 	if (dt >= 360.0f)
 		dt -= 360.0f;
 	for (int i = 1; i < Y_CTR_NUM; i++)
 	{
-		y = y_d*sin(dt/180*PI + i*PI/2);
-		ctrlPoints[0][i][1] = y + y_offset;
-		ctrlPoints[1][i][1] = y + y_offset;
+		y = 0.7*y_d*sin(dt/180*PI + i*PI/2)+0.3*y_d*cos(dt/180*PI + i*PI/2);
+		z = 0.6*z_d*cos(dt / 180 * PI + i*PI / 2)+0.4*z_d*sin(dt/180*PI+i*PI/2);
+		ctrlPoints[0][i][1] = y + y_offset; ctrlPoints[0][i][2] = z + z_offset;
+		ctrlPoints[1][i][1] = y + y_offset; ctrlPoints[1][i][2] = -z - z_offset;
 	}
 }
 
 void Flag::setWind(int level)
 {
-	y_d = 1.0f + level / 5;
+	y_d = 2.0f + level / 5;
+	z_d = 0.8f + level / 10;
 	y_offset = 0.5f + level / 10;
+	z_offset = 2;
 }
 
 void Flag::windUp()

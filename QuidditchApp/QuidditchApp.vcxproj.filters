@@ -57,6 +57,15 @@
     <ClCompile Include="terrain.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="perlin.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="genTexture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="hill.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h">
@@ -96,6 +105,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="terrain.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="perlin.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="genTexture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="hill.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

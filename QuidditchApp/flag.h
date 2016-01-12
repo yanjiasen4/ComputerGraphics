@@ -48,6 +48,7 @@ private:
 	int w_level;
 	GLfloat post_length, post_radius;
 	GLfloat y_d, y_offset;
+	GLfloat z_d, z_offset;
 };
 
 #endif

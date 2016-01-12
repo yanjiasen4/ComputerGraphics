@@ -96,7 +96,7 @@ void Skybox::render()
 	glEnd();
 
 	glPopMatrix();
-
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	glDisable(GL_TEXTURE_2D);
 	glEnable(GL_LIGHTING);
 	

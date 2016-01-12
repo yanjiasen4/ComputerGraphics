@@ -50,7 +50,7 @@ void Object::draw()
 		Material mt = material_map[(*i)->mtName];
 		SetMaterial(GL_FRONT_AND_BACK, GL_AMBIENT, mt.ka);
 		SetMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE, mt.kd);
-		//glColor3f(0.0f, 0.0f, 0.8f);
+		SetMaterial(GL_FRONT_AND_BACK, GL_SPECULAR, mt.ks);
 		glBindTexture(GL_TEXTURE_2D, mt.kd_texid);
 		glVertexPointer(3, GL_FLOAT, 0, (*i)->ptBuffer);
 		glTexCoordPointer(2, GL_FLOAT, 0, (*i)->uvBuffer);
@@ -64,7 +64,6 @@ void Object::draw()
 	glDisableClientState(GL_NORMAL_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
-	
 }
 
 void Object::parsePolygon(std::ifstream & ifs, std::string &name)
@@ -106,7 +105,6 @@ void Object::parsePolygon(std::ifstream & ifs, std::string &name)
 			std::string fcname;
 			strstm >> fcname;
 			pMesh->fcName = fcname;
-
 		}
 	}
 	children.push_back(pMesh);
@@ -292,8 +290,14 @@ void Object::loadFromObj(const char * filename)
 			strstm >> u >> v;
 			int ui = u;
 			int vi = v;
-			u -= ui;
-			v -= vi;
+			if (ui == 1)
+				u = 1;
+			else
+				u -= ui;
+			if (vi == 1)
+				v = 1;
+			else
+				v -= vi;
 			uvBuffer[cur_vtp][0] = u;
 			uvBuffer[cur_vtp][1] = v;
 			cur_vtp++;
@@ -314,11 +318,61 @@ void Object::loadFromObj(const char * filename)
 	}
 }
 
+/*
+void Object::calcHeight()
+{
+	if (height == NULL)
+	{
+		GLuint num = sqrt(vNum);
+		height = new GLfloat*[num];
+		for (GLuint i = 0; i < num; i++)
+		{
+			height[i] = new GLfloat[num];
+		}
+		GLfloat last_x = -100.0f;
+		GLfloat last_y = 100.0f;
+		GLuint px = 0;
+		GLuint py = num - 1;
+		for (GLuint i = 0; i < vNum; i++)
+		{
+			GLfloat x = ptBuffer[i][0];
+			GLfloat z = ptBuffer[i][1];
+			GLfloat y = ptBuffer[i][2];
+			if (x < last_x)
+			{
+				if (last_x > 0 && x < 0)
+				{
+					px = 0;
+				}
+				else 
+				{
+					px--;
+				}
+			}
+			else if (x > last_x)
+			{
+				px++;
+			}
+			if (y < last_y)
+			{
+				py--;
+			}
+			else if(y > last_y)
+			{ 
+				py++;
+			}
+			height[py][px] = z;
+			last_x = x;
+			last_y = y;
+		}
+	}
+}
+*/
+
 Object::Object() :vNum(0), vtNum(0), vnNum(0), angle(0), position(0.0, 0.0, 0.0) {
 	ptBuffer = NULL;
 	uvBuffer = NULL;
 	nmBuffer = NULL;
-	cout << position.x << ends << position.y << ends << position.z << endl;
 }
 
 Object::~Object()
@@ -334,5 +388,13 @@ Object::~Object()
 	}
 	for (std::list<SubMesh*>::iterator i = children.begin(); i != children.end(); i++) {
 		delete *i;
+	}
+	if (height != NULL) {
+		GLuint num = sqrt(vNum);
+		for (GLuint i = 0; i < num; i++)
+		{
+			delete[] height[i];
+		}
+		delete[] height;
 	}
 }

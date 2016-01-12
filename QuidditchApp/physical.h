@@ -6,6 +6,7 @@
 #include "matrix.h"
 #include "orb.h"
 #include "Club.h"
+#include "table.h"
 #include "particle.h"
 
 #define MORB 0
@@ -18,6 +19,7 @@ public:
 	CrashList();
 	~CrashList();
 
+	void init();
 	void addObj(Orb obj);
 	void delObj(int index);
 	
@@ -37,6 +39,7 @@ private:
 	vector<ParticleSystem*> particles;
 	vector<Orb> objList;
 	Club *clb;
+	Table *tb;
 };
 
 #endif

@@ -7,12 +7,21 @@ CrashList::CrashList()
 	Orb motherOrb = Orb(m_x,m_y,m_z,defualt_r,0.0,0.0,0.0);
 	motherOrb.setColor(1.0, 1.0, 1.0);
 	addObj(motherOrb);
+	tb = new Table();
 	clb = new Club();
 }
 
 CrashList::~CrashList()
 {
+	if (tb)
+		delete tb;
+	if (clb)
+		delete clb;
+}
 
+void CrashList::init()
+{
+	tb->init();
 }
 
 void CrashList::addObj(Orb obj)
@@ -49,7 +58,7 @@ void CrashList::crash()
 				Point3D o1 = objList[i].o;
 				Point3D o2 = objList[j].o;
 				Point3D mid = (o1 + o2) / 2;
-				Spark *spk = new Spark(100);
+				Spark *spk = new Spark(30);
 				spk->init(mid.x, mid.y, mid.z);
 				spk->activate();
 				particles.push_back(spk);
@@ -86,6 +95,7 @@ Orb CrashList::getObj(int i)
 
 void CrashList::renderAll()
 {
+	tb->render();
 	for (int i = 0; i < particles.size(); i++)
 	{
 		particles[i]->render();
@@ -99,19 +109,39 @@ void CrashList::renderAll()
 
 void CrashList::updateAll()
 {
-	for (int i = 0; i < particles.size(); i++)
+	tb->update();
+	vector<ParticleSystem*>::iterator iter = particles.begin();
+	while(iter != particles.end())
 	{
-		particles[i]->update(0.01);
-		if (!particles[i]->isActive())
+		(*iter)->update(0.002);
+		if (!(*iter)->isActive())
 		{
-			//delete particles[i];
+			ParticleSystem *ps = *iter;
+			iter = particles.erase(iter);
+			delete ps;
+		}
+		else
+		{
+			iter++;
 		}
 	}
 	Point3D aim_o = getMPos();
 	clb->update(aim_o.x,aim_o.y);
 	for (int i = 0; i < objList.size(); i++)
 	{
-		objList[i].update();
+		Point3D pos = objList[i].getPos();
+		if (tb->inHill(pos.x, pos.y))
+		{
+			float r = objList[i].getRadius();
+			float z = tb->getHeight(pos.x, pos.y) + r;
+			cout << z << endl;
+			//cout << "!" << z << endl;
+			objList[i].update(z);
+		}
+		else
+		{
+			objList[i].update();
+		}
 	}
 }
 

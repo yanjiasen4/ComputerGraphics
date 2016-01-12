@@ -100,14 +100,12 @@ void ParticleSystem::render()
 				glColor4f((*iter)->color.r, (*iter)->color.g, (*iter)->color.b, alpha);
 				glPushMatrix();
 				glTranslatef(tmp.x, tmp.y, tmp.z);
-				//cout << (*iter)->position.x<<tmp.x << tmp.y << tmp.z << endl;
 				gluSphere(mySphere, (*iter)->size, 32, 16);
 				glPopMatrix();
 			}
 		}
 	}
 	glEnable(GL_DEPTH_TEST);
-	//glAccum(GL_ACCUM, 0.5f);
 }
 
 bool ParticleSystem::isActive()
@@ -164,7 +162,7 @@ void Spark::init(GLfloat xx, GLfloat yy, GLfloat zz)
 		float vz = float((rand() % 50) - 26.0f)/25;
 		int randColor = rand() % 11;
 		Color cl = colors[randColor];
-		float life = 2.0 + rand() % 8;
+		float life = 1.3 + rand() % 12;
 		Vector3D pos = Vector3D(x, y, z);
 		Vector3D spd = Vector3D(vx, vy, vz);
 		Vector3D acl = Vector3D(0.0f, 0.0f, -0.8f);
@@ -183,7 +181,6 @@ void Spark::init(GLfloat xx, GLfloat yy, GLfloat zz)
 void Spark::update(float dt)
 {
 	aging(dt);
-	//applyGravity();
 	for (vector<Particle*>::iterator iter = particles.begin(); iter != particles.end(); iter++)
 	{
 		(*iter)->position = (*iter)->position + (*iter)->velocity*dt;
@@ -195,7 +192,6 @@ void Spark::render()
 {
 	if (isActive())
 	{
-		
 		glEnable(GL_TEXTURE_2D);	
 		glDisable(GL_LIGHTING);
 		glDisable(GL_DEPTH_TEST);
@@ -212,10 +208,7 @@ void Spark::render()
 				float z = (*iter)->position.z;
 				Color color = (*iter)->color;
 				float alpha = 1.0 - (*iter)->age / (*iter)->life;
-				//cout << color.r << ends << color.g << ends << color.b << endl;
 				glColor4f(color.r, color.g, color.b, alpha);
-				//cout << (*iter)->age << endl;
-				//glColor4f(1, 0, 0, alpha);
 				float sz = 0.5;
 				glPushMatrix();
 				glBegin(GL_TRIANGLE_STRIP);

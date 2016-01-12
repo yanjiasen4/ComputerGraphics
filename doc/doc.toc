@@ -1,0 +1,39 @@
+\contentsline {section}{\numberline {1}简述}{1}
+\contentsline {subsection}{\numberline {1.1}开发环境}{1}
+\contentsline {paragraph}{}{2}
+\contentsline {subsection}{\numberline {1.2}完成功能}{2}
+\contentsline {paragraph}{}{2}
+\contentsline {section}{\numberline {2}设计说明}{2}
+\contentsline {subsection}{\numberline {2.1}程序结构}{2}
+\contentsline {paragraph}{}{2}
+\contentsline {paragraph}{程序结构}{2}
+\contentsline {subsection}{\numberline {2.2}文件路径说明}{3}
+\contentsline {paragraph}{}{3}
+\contentsline {section}{\numberline {3}实现过程}{3}
+\contentsline {subsection}{\numberline {3.1}读取obj模型文件和绘制}{3}
+\contentsline {paragraph}{}{3}
+\contentsline {paragraph}{}{4}
+\contentsline {subsection}{\numberline {3.2}光照效果}{4}
+\contentsline {paragraph}{聚光灯}{4}
+\contentsline {paragraph}{}{4}
+\contentsline {paragraph}{}{5}
+\contentsline {paragraph}{}{5}
+\contentsline {subsection}{\numberline {3.3}实现简单版本的3D物理引擎}{5}
+\contentsline {paragraph}{}{5}
+\contentsline {paragraph}{}{6}
+\contentsline {paragraph}{}{6}
+\contentsline {paragraph}{}{6}
+\contentsline {subsection}{\numberline {3.4}使用perlin噪声为小球生成随机纹理}{7}
+\contentsline {paragraph}{Perlin噪声}{7}
+\contentsline {paragraph}{}{7}
+\contentsline {subsection}{\numberline {3.5}天空盒}{7}
+\contentsline {paragraph}{}{7}
+\contentsline {subsection}{\numberline {3.6}完善视角控制}{8}
+\contentsline {paragraph}{}{8}
+\contentsline {subsection}{\numberline {3.7}粒子特效}{8}
+\contentsline {paragraph}{原理}{8}
+\contentsline {paragraph}{}{8}
+\contentsline {paragraph}{Spark}{9}
+\contentsline {paragraph}{}{10}
+\contentsline {section}{\numberline {4}效果展示}{10}
+\contentsline {paragraph}{}{10}

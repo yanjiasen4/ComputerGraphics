@@ -1,5 +1,7 @@
 #include "controller.h"
 
+bool spotOpen = true;
+
 Controller::Controller()
 {
 	//.......
@@ -94,12 +96,21 @@ void processNormalKeys(unsigned char key, int x, int y)
 		skybox->update(newVis.x, newVis.y, newVis.z);
 		glutPostRedisplay();
 		break;
+	case 'b':
+		if (spotOpen)
+		{
+			glDisable(GL_LIGHT1);
+			spotOpen = false;
+		}
+		else {
+			glEnable(GL_LIGHT1);
+			spotOpen = true;
+		}
+		break;
 	default:
 		break;
 	}
 }
-
-
 
 void processSpecialKeys(int key, int x, int y)
 {
@@ -117,13 +128,13 @@ void processSpecialKeys(int key, int x, int y)
 		skybox->update(newVis.x, newVis.y, newVis.z);
 		glutPostRedisplay();
 		break;
-	case GLUT_KEY_LEFT:
+	case GLUT_KEY_LEFT: // ÊÓ½Ç×óÐý1¡ã
 		newVis = cam->turnleft(1.0);
 		cout << newVis.x << newVis.y << newVis.z << endl;
 		skybox->update(newVis.x, newVis.y, newVis.z);
 		glutPostRedisplay();
 		break;
-	case GLUT_KEY_RIGHT:
+	case GLUT_KEY_RIGHT: // ÊÓ½ÇÓÒÐý1¡ã
 		newVis = cam->turnright(1.0);
 		cout << newVis.x << newVis.y << newVis.z << endl;
 		skybox->update(newVis.x, newVis.y, newVis.z);

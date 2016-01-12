@@ -48,6 +48,7 @@ public:
 	GLuint vtNum;
 	GLuint vnNum;
 	std::map<std::string, Material> material_map;
+	GLfloat **height;
 	Vector3D position;
 	GLfloat angle;
 	void draw();
