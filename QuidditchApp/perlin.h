@@ -1,4 +1,7 @@
 #pragma once
+#ifndef __PERLIN_H__
+#define __PERLIN_H__
+
 #include "math.h"
 
 #define OCTAVES       3
@@ -10,3 +13,5 @@ float smooth(int x, int y);
 float cubicInterpolate(float v0, float v1, float v2, float v3, float x);
 float noiseInterpolate(float x, float y);
 float perlinNoise(float x, float y);
+
+#endif

@@ -157,12 +157,12 @@ void Spark::init(GLfloat xx, GLfloat yy, GLfloat zz)
 	srand(unsigned(time(0)));
 	for (int i = 0; i<pCount; i++)		
 	{
-		float vx = float((rand() % 50) - 26.0f)/25;
-		float vy = float((rand() % 50) - 26.0f)/25;
-		float vz = float((rand() % 50) - 26.0f)/25;
+		float vx = float((rand() % 50) - 26.0f)/10;
+		float vy = float((rand() % 50) - 26.0f)/10;
+		float vz = float((rand() % 50) - 26.0f)/10;
 		int randColor = rand() % 11;
 		Color cl = colors[randColor];
-		float life = 1.3 + rand() % 12;
+		float life = 1.3 + rand() % 10;
 		Vector3D pos = Vector3D(x, y, z);
 		Vector3D spd = Vector3D(vx, vy, vz);
 		Vector3D acl = Vector3D(0.0f, 0.0f, -0.8f);

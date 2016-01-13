@@ -118,25 +118,25 @@ void processSpecialKeys(int key, int x, int y)
 	switch (key) {
 	case GLUT_KEY_UP:
 		newVis = cam->trackup(1.0); // 视角上移1°
-		cout << newVis.x << newVis.y << newVis.z << endl;
+		//cout << newVis.x << newVis.y << newVis.z << endl;
 		skybox->update(newVis.x, newVis.y, newVis.z);
 		glutPostRedisplay();
 		break;
 	case GLUT_KEY_DOWN:
 		newVis = cam->trackdown(1.0); // 视角下移1°
-		cout << newVis.x << newVis.y << newVis.z << endl;
+		//cout << newVis.x << newVis.y << newVis.z << endl;
 		skybox->update(newVis.x, newVis.y, newVis.z);
 		glutPostRedisplay();
 		break;
 	case GLUT_KEY_LEFT: // 视角左旋1°
 		newVis = cam->turnleft(1.0);
-		cout << newVis.x << newVis.y << newVis.z << endl;
+		//cout << newVis.x << newVis.y << newVis.z << endl;
 		skybox->update(newVis.x, newVis.y, newVis.z);
 		glutPostRedisplay();
 		break;
 	case GLUT_KEY_RIGHT: // 视角右旋1°
 		newVis = cam->turnright(1.0);
-		cout << newVis.x << newVis.y << newVis.z << endl;
+		//cout << newVis.x << newVis.y << newVis.z << endl;
 		skybox->update(newVis.x, newVis.y, newVis.z);
 		glutPostRedisplay();
 		break;

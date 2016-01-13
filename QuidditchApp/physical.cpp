@@ -84,7 +84,7 @@ void CrashList::hit()
 	float club_ag = clb->getAngle();
 	float v_x = cos(club_ag/180*PI);
 	float v_y = sin(club_ag/180*PI);
-	m_v.set(m_v.x+0.02*v_x, m_v.y+0.02*v_y, 0);
+	m_v.set(m_v.x+0.2*v_x, m_v.y+0.2*v_y, 0);
 	objList[0].setSpeed(m_v.x,m_v.y,m_v.z);
 }
 
@@ -107,13 +107,13 @@ void CrashList::renderAll()
 	}
 }
 
-void CrashList::updateAll()
+void CrashList::updateAll(float dt)
 {
 	tb->update();
 	vector<ParticleSystem*>::iterator iter = particles.begin();
 	while(iter != particles.end())
 	{
-		(*iter)->update(0.002);
+		(*iter)->update(dt);
 		if (!(*iter)->isActive())
 		{
 			ParticleSystem *ps = *iter;
@@ -134,8 +134,6 @@ void CrashList::updateAll()
 		{
 			float r = objList[i].getRadius();
 			float z = tb->getHeight(pos.x, pos.y) + r;
-			cout << z << endl;
-			//cout << "!" << z << endl;
 			objList[i].update(z);
 		}
 		else

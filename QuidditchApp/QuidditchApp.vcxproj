@@ -82,6 +82,7 @@
     <ClCompile Include="perlin.cpp" />
     <ClCompile Include="physical.cpp" />
     <ClCompile Include="skybox.cpp" />
+    <ClCompile Include="stringdraw.cpp" />
     <ClCompile Include="table.cpp" />
     <ClCompile Include="terrain.cpp" />
   </ItemGroup>
@@ -100,6 +101,7 @@
     <ClInclude Include="perlin.h" />
     <ClInclude Include="physical.h" />
     <ClInclude Include="skybox.h" />
+    <ClInclude Include="stringdraw.h" />
     <ClInclude Include="table.h" />
     <ClInclude Include="terrain.h" />
   </ItemGroup>

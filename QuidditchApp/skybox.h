@@ -4,7 +4,7 @@
 
 #include "glhf.h"
 
-#define EMAX 75
+#define EMAX 100
 
 #define BACK_TEX  2
 #define DOWN_TEX  3

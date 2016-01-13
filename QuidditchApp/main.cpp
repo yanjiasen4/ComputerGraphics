@@ -6,12 +6,16 @@
 #include "physical.h"
 #include "flag.h"
 #include "particle.h"
+#include "stringdraw.h"
 
 using namespace std;
 
 const int windowL = 800;
 const int windowW = 1000;
 const float orb_z = 0.4;
+
+clock_t start_time;
+clock_t end_time;
 
 GLfloat orb_r = 0.3;
 GLfloat spin = 0;
@@ -20,10 +24,10 @@ Spark *ps;
 CrashList *crashManager;
 Camera *cam;
 Controller *control;
-//Table *tb;
 Orb *orb[6];
 Orb *ghost[6];
 Flag *flag;
+StringDraw *sd;
 
 GLfloat light1_ambient[] = { 0.4, 0.4, 0.4, 1.0 };
 GLfloat light1_diffuse[] = { 0.4, 0.6, 0.5, 1.0 };
@@ -78,9 +82,10 @@ void InitGL()
 	glShadeModel(GL_SMOOTH);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_POINT_SMOOTH);
-	glEnable(GL_LINE_SMOOTH);
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+	glEnable(GL_LINE_SMOOTH);
+	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -89,22 +94,20 @@ void InitGL()
 
 	initAllTexture();
 
-	//tb = new Table;
-	//tb->init();
 	crashManager = new CrashList();
-	orb[0] = new Orb(0.0, 0.0, orb_z, orb_r, 0.003, 0.002, 0.0);
-	orb[1] = new Orb(1.0, 0.0, orb_z, orb_r, 0.005, 0.004, 0.0);
-	orb[2] = new Orb(0.0, 1.0, orb_z, orb_r, 0.004, -0.006, 0.0);
-	orb[3] = new Orb(1.0, 1.0, orb_z, orb_r, 0.008, 0.001, 0.0);
-	orb[4] = new Orb(1.0, -1.0, orb_z, orb_r, 0.003, 0.006, 0.0);
-	orb[5] = new Orb(-1.0, 0.0, orb_z, orb_r, 0.002, 0.002, 0.0);
+	orb[0] = new Orb(0.0, 0.0, orb_z, orb_r, 0.015, 0.010, 0.0);
+	orb[1] = new Orb(1.0, 0.0, orb_z, orb_r, 0.015, 0.012, 0.0);
+	orb[2] = new Orb(0.0, 1.0, orb_z, orb_r, 0.020, -0.03, 0.0);
+	orb[3] = new Orb(1.0, 1.0, orb_z, orb_r, 0.040, 0.005, 0.0);
+	orb[4] = new Orb(1.0, -1.0, orb_z, orb_r, 0.015, 0.030, 0.0);
+	orb[5] = new Orb(-1.0, 0.0, orb_z, orb_r, 0.010, 0.010, 0.0);
 	ghost[0] = new Orb(5.0, 4.0, orb_z, orb_r, 0, 0, 0);
 	ghost[1] = new Orb(0.0, 4.0, orb_z, orb_r, 0, 0, 0);
 	ghost[2] = new Orb(-5.0, 4.0, orb_z, orb_r, 0, 0, 0);
 	ghost[3] = new Orb(5.0, -4.0, orb_z, orb_r, 0, 0, 0);
 	ghost[4] = new Orb(0.0, -4.0, orb_z, orb_r, 0, 0, 0);
 	ghost[5] = new Orb(-5.0, -4.0, orb_z, orb_r, 0, 0, 0);
-	Orb* gorb = new Orb(0.0, 0.0, 10.0, orb_r, 0, 0.008, 0);
+	Orb* gorb = new Orb(0.0, 0.0, 10.0, orb_r, 0, 0.040, 0);
 	gorb->setIndex(2);
 	gorb->init();
 	crashManager->addObj(*gorb);
@@ -127,6 +130,8 @@ void InitGL()
 	control->init();
 	flag = new Flag();
 	flag->init();
+	sd = new StringDraw("init");
+	sd->init();
 	initlights();
 }
 
@@ -141,22 +146,33 @@ void myDisplay()
 	control->setModelViewMatrix();
 	setlights();
 	skybox->render();
-	//tb->render();
 	flag->render();
-
-	flag->update();
-	crashManager->crash();
 	crashManager->renderAll();
-	crashManager->updateAll();
+	sd->render();
 
 	glutSwapBuffers();
 	glFlush();
-	//cout << glGetError() << endl;
+}
+
+void myUpdate(float dt)
+{
+	flag->update(dt);
+	crashManager->crash();
+	crashManager->updateAll(dt);
+	int fps = 1.0f / dt;
+	stringstream ss;
+	ss << fps;
+	string fps_counter = "FPS: " + ss.str();
+	sd->update(fps_counter);
 }
 
 void timerProc(int id)
 {
+	start_time = clock();
 	myDisplay();
+	end_time = clock();
+	float dt = (end_time-start_time) / 1000.0f;
+	myUpdate(dt);
 	glutTimerFunc(16, timerProc, 1);
 }
 

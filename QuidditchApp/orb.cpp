@@ -77,24 +77,22 @@ void Orb::render()
 {
 	glPushMatrix();
 	glTranslatef(o.x, o.y, o.z+r);
-	glColor3f(colorR, colorG, colorB);
-	glEnable(GL_TEXTURE_GEN_S);						
-	glEnable(GL_TEXTURE_GEN_T);						
+	glColor3f(colorR, colorG, colorB);					
 	glEnable(GL_TEXTURE_2D);
-	//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-	//glEnable(GL_BLEND);
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE)
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	glBindTexture(GL_TEXTURE_2D, texID);
+	GLUquadricObj *quadratic;
+	quadratic = gluNewQuadric();	    // 创建二次几何体
+	gluQuadricTexture(quadratic, GL_TRUE);	   // 使用纹理
+	gluSphere(quadratic, r, 30, 30);
 	SetMaterial(GL_FRONT_AND_BACK, GL_AMBIENT, orb_mat_ambient);
 	SetMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE, orb_mat_diffuse);
 	SetMaterial(GL_FRONT_AND_BACK, GL_SPECULAR, orb_mat_specluar);
-
-	glutSolidSphere(r, 30, 30);
 	glDisable(GL_TEXTURE_GEN_S);						
 	glDisable(GL_TEXTURE_GEN_T);
 	glDisable(GL_TEXTURE_2D);
-	//glDisable(GL_BLEND);
 	glPopMatrix();
+	glFlush();
 }
 
 void Orb::update()
@@ -103,7 +101,6 @@ void Orb::update()
 	{
 		o.x += vx;
 		o.y += vy;
-		//o.z += vz;
 	}
 	else if (index == 2) //golden 
 	{
@@ -262,7 +259,7 @@ void Orb::initTexture()
 {
 	// 使用perlin噪声生成随机纹理
 	cout << "使用perlin噪声生成随机纹理";
-	int seed = rand() % 25;
+	int seed = rand() % 16501;
 	cout << seed << endl;
 	Texture *tex = genTexture(seed);
 	loadTexture(tex, texID);

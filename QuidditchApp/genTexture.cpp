@@ -10,9 +10,9 @@ Texture* genTexture(int seed)
 	{
 		for (int j = 0; j < TEX_X; j++)
 		{
-			unsigned char value = LEVEL*perlinNoise(float(j+seed) / 64.0f, float(i+seed) / 64.0f);
-			tex->data[(j + i*TEX_X) * 3]     = value;
-			tex->data[(j + i*TEX_X) * 3 + 1] = value;
+			unsigned char value = LEVEL*perlinNoise(float(j+seed)/16, float(i+seed)/16);
+			tex->data[(j + i*TEX_X) * 3]     = 0;
+			tex->data[(j + i*TEX_X) * 3 + 1] = 0;
 			tex->data[(j + i*TEX_X) * 3 + 2] = value;
 		}
 	}

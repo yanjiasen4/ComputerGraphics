@@ -64,7 +64,7 @@ float Hill::getHeight(float x, float y)
 		float b = x - px;
 		float a = y - py;
 		py += 10;
-		float z = (1-a)*((1-b)*heightDiagram[py][px] + b*heightDiagram[py + 1][px]) +  a*((1-b)*heightDiagram[py][px + 1] + b*heightDiagram[py + 1][px + 1]);
+		float z = (1-a)*((1-b)*heightDiagram[py][px] + b*heightDiagram[py][px + 1]) +  a*((1-b)*heightDiagram[py + 1][px] + b*heightDiagram[py + 1][px + 1]);
 		return z;
 	}
 	else 

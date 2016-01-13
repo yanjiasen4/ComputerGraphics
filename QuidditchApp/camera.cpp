@@ -20,15 +20,17 @@ view(pos), ref(tar), vis(V)
 
 void Camera::setModelViewMatrix()
 {
+	/*
 	float m[16];
 	Vector3D eVec(view.x, view.y, view.z);
 	m[0] = u.x; m[4] = u.y; m[8] = u.z; m[12] = -eVec.dot(u);
 	m[1] = v.x; m[5] = v.y; m[9] = v.z; m[13] = -eVec.dot(v);
 	m[2] = n.x; m[6] = n.y; m[10] = n.z;m[14] = -eVec.dot(n);
 	m[3] = 0;   m[7] = 0;   m[11] = 0;  m[15] = 1.0;
+	*/
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(view.x,view.y,view.z, ref.x,ref.y,ref.z, 0,1,0);
+	gluLookAt(view.x,view.y,view.z, ref.x,ref.y,ref.z, 0,0,1);
 	//glLoadMatrixf(m);     //用M矩阵替换原视点矩阵  
 }
 
@@ -75,7 +77,7 @@ Point3D Camera::trackup(float angle)
 	vis.setZ(sn);
 	setCamera();
 	// debug
-	printCamInfo();
+	//printCamInfo();
 	// reflush
 	setModelViewMatrix();
 	return Point3D(vis.x, vis.y, vis.z);
@@ -94,7 +96,7 @@ Point3D Camera::trackdown(float angle)
 	vis.setZ(sn);
 	setCamera();
 	// debug
-	printCamInfo();
+	//printCamInfo();
 	// reflush
 	setModelViewMatrix();
 	return Point3D(view.x, view.y, view.z);
@@ -103,11 +105,21 @@ Point3D Camera::trackdown(float angle)
 Point3D Camera::turnleft(float offset)
 {
 	float x = view.x;
-	x -= offset;
+	float y = view.y;
+	float r = sqrt(x*x + y*y);
+	float cs = acos(x / r)*180/PI;
+	cs += offset;
+	if (y < 0)
+	{
+		cs = -cs;
+	}
+	x = r*cos(cs*PI/180);
+	y = r*sin(cs*PI/180);
 	view.setX(x);
+	view.setY(y);
 	setCamera();
 	// debug
-	printCamInfo();
+	//printCamInfo();
 	// reflush
 	setModelViewMatrix();
 	return Point3D(view.x, view.y, view.z);
@@ -116,11 +128,20 @@ Point3D Camera::turnleft(float offset)
 Point3D Camera::turnright(float offset)
 {
 	float x = view.x;
-	x += offset;
+	float y = view.y;
+	float r = sqrt(x*x + y*y);
+	float cs = acos(x / r) * 180 / PI;
+	cs -= offset;
+	if (y < 0)
+	{
+		cs = -cs;
+	}
+	x = r*cos(cs*PI / 180);
+	y = r*sin(cs*PI / 180);
 	view.setX(x);
-	setCamera();
+	view.setY(y);
 	// debug
-	printCamInfo();
+	//printCamInfo();
 	// reflush
 	setModelViewMatrix();
 	return Point3D(view.x, view.y, view.z);
@@ -133,7 +154,7 @@ Point3D Camera::zoomin(float offset)
 	view.setY(y);
 	setCamera();
 	// debug
-	printCamInfo();
+	//printCamInfo();
 	// reflush
 	setModelViewMatrix();
 	return Point3D(view.x, view.y, view.z);
@@ -146,7 +167,7 @@ Point3D Camera::zoomout(float offset)
 	view.setY(y);
 	setCamera();
 	// debug
-	printCamInfo();
+	//printCamInfo();
 	// reflush
 	setModelViewMatrix();
 	return Point3D(view.x, view.y, view.z);

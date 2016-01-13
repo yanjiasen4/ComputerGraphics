@@ -28,7 +28,7 @@ public:
 
 	Orb getObj(int i);
 	void renderAll();
-	void updateAll();
+	void updateAll(float dt);
 
 	Point3D getMPos();
 	void rotateClb(float angle);

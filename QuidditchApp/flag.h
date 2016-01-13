@@ -17,7 +17,7 @@ public:
 
 	void init();
 	void render();
-	void update();
+	void update(float dt);
 	
 	void setWind(int level);
 	void windUp();
@@ -44,7 +44,7 @@ private:
 	};
 	GLfloat texpts[2][2][2] = { { { 0.0,0.0 },{ 0.0,1.0 } },{ { 1.0,0.0 },{ 1.0,1.0 } } };
 	GLuint tex_ID;
-	GLfloat dt;
+	GLfloat t;
 	int w_level;
 	GLfloat post_length, post_radius;
 	GLfloat y_d, y_offset;
